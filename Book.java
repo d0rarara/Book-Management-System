@@ -3,11 +3,11 @@
 // Assignment 4
 // Due Date: April 17, 2023 
 
-public class Book {
+public class Book implements Comparable<Book> {
     private String title;
     private String author;
     private double price;
-    private String isbn;
+    private long isbn;
     private String genre;
     private int year;
 
@@ -21,7 +21,7 @@ public class Book {
      * @param genre genre of record 
      * @param year release year of record 
      */
-    public Book(String title, String author, double price, String isbn, String genre, int year){
+    public Book(String title, String author, double price, long isbn, String genre, int year){
         this.title = title;
         this.author = author;
         this.price = price;
@@ -30,7 +30,19 @@ public class Book {
         this.year = year;
     }
 
-     /**
+    /**
+     * default constructor
+     */
+     public Book() {
+        this.title = "";
+        this.author = "";
+        this.price = 0.0;
+        this.isbn = 0;
+        this.genre = "";
+        this.year = 0;
+    }
+
+    /**
      * get the title 
      * 
      * @return
@@ -62,7 +74,7 @@ public class Book {
      * 
      * @return
      */
-    public String getISBN(){
+    public long getISBN(){
         return this.isbn;
     }
 
@@ -116,7 +128,7 @@ public class Book {
      * 
      * @param isbn
      */
-    public void setISBN(String isbn){
+    public void setISBN(long isbn){
         this.isbn = isbn;
     }
 
@@ -138,16 +150,15 @@ public class Book {
         this.year = year;
     }
 
+    @Override
     public String toString(){
-        return this.title + "," + this.author + "," + this.price + "," + this.isbn + "," + this.genre + "," + this.year;
+        return String.format("%s,%s,%.2f,%d,%s,%4d", title, author, price, isbn, genre, year);
     }
 
-    public boolean equals(Object o){
-        if(o==null || !(o instanceof Book)){
-            return false;
-        } else {
-            Book other = (Book) o;
-            return title == other.title && author == other.author && price == other.price && isbn == other.isbn && genre == other.genre && year == other.year;
-        }
+    @Override
+    public int compareTo(Book that){
+        return this.year - that.year;
     }
+
+  
 }
