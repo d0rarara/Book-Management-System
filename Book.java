@@ -56,7 +56,7 @@ public class Book implements Comparable<Book> {
      * 
      * @return
      */
-    public String getauthor(){
+    public String getAuthor(){
         return this.author;
     }
 

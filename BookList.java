@@ -1,10 +1,6 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
 
 public class BookList {
     
@@ -13,31 +9,31 @@ public class BookList {
         private Book b;
         private Node next;
 
-        public Node(){
-            b = null;
-            next = null;
-        }
+        // public Node(){
+        //     b = null;
+        //     next = null;
+        // }
 
         public Node(Book bData, Node nextNode){
             b = bData;
             next = nextNode;
         }
 
-        public Book getBook(){
-            return this.b;
-        }
+        // public Book getBook(){
+        //     return this.b;
+        // }
 
-        public Node getNext(){
-            return this.next;
-        }
+        // public Node getNext(){
+        //     return this.next;
+        // }
 
-        public void setBook(Book b){
-            this.b = b;
-        }
+        // public void setBook(Book b){
+        //     this.b = b;
+        // }
 
-        public void setNext(Node next){
-            this.next = next;
-        }
+        // public void setNext(Node next){
+        //     this.next = next;
+        // }
     }
 
     // one attribute called head 
@@ -55,13 +51,13 @@ public class BookList {
     /**
      * adds a Node with the passed Book object at the start (head) of the list
      * 
-     * @param b
+     * @param b book object
      */
     public void addToStart(Book b){
         // if the list is empty
         if (head == null)
         {
-            // create new node whos "next" attribute points to itself
+            // create new node whose "next" attribute points to itself
             head = new Node(b, null);
 
             head.next = head;
@@ -76,20 +72,21 @@ public class BookList {
         Node current = head;
         while (current.next != head) 
         {
+            // when this loop finishes, current will point to the last node in the list
             current = current.next;
-        } // when this loop finishes, current will point to the last node in the list
+        } 
 
         // link the last node of the list to the new node
         current.next = newNode;
 
-        // change head to our new node
+        // change head to new node
         head = newNode;
     }
 
     /**
      * finds all book records based on given year and stores them in proper yr.txt file
      * 
-     * @param yr
+     * @param yr year of book record
      */
     public void storeRecordsByYear(int yr){
 
@@ -102,33 +99,49 @@ public class BookList {
 
         Node current = head;
 
-        try 
-        {
-            // open text file 
-            FileWriter myWriter = new FileWriter(filename);
-            while (true) {
+        
+        while (true) 
+        { 
+            // SHOULD NOT CREATE FILE IF YEAR NOT FOUND
+            FileWriter myWriter = null;
+            try
+            {   
                 if (current.b.getYear() == yr) 
                 {
+                    // open text file 
+                    myWriter = new FileWriter(filename, true);
+
                     // write current.b to [yr].txt
                     myWriter.write(current.b.toString() + "\n");
+                    myWriter.close();
                 }
-
+                    
+        
                 // move our current pointer to the next node in the list
                 current = current.next;
-                
+                        
                 // Break the loop when we get back to the head
                 if (current.next == head){
                     break;
                 }
+            } 
+            catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
             }
-            myWriter.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
         }
-
     }
 
+    /**
+     * method searches list for first occurence of Node holding Book object with ISBN equal
+     * to passed isbn value
+     * 
+     * if found, new node will be inserted in the list (holding Book b) before the aforementioned node
+     * 
+     * @param isbn isbn value of book record
+     * @param b book object
+     * @return true if node is found 
+     */
     public boolean insertBefore(long isbn, Book b)
     {
         Node current = head;
@@ -156,13 +169,42 @@ public class BookList {
         }
     }
 
-    //  ----------------------------------------
-    // TODO
-    // ---------------------------------------
-
+    /**
+     * method searches list for first occurence of first two consecutive nodes holding Book objects with ISBN values
+     * equal to passed isbn1 and isbn2
+     * 
+     * if found, new node will be inserted in the list (holding Book b) in between the aforementioned nodes
+     * 
+     * @param isbn1 first isbn value of book record
+     * @param isbn2 second isbn value of book record
+     * @param b book record
+     * @return true if nodes are found
+     */
     public boolean insertBetween(long isbn1, long isbn2, Book b)
     {
-        return false;
+        Node current = head;
+        while (true)
+        {
+            // check if the next two nodes matches the passed isbn parameters
+            if (current.b.getISBN() == isbn2 && current.next.b.getISBN() == isbn1)
+            {
+                // insert new node before current.next
+                Node newNode = new Node(b, current.next);
+
+                // and after current.next
+                current.next = newNode;
+
+                return true;
+            }
+
+            // shift to the next node
+            current = current.next;
+
+            // if we get to the end of the list without matching isbn, return false
+            if (current == head || current.next == head ){
+                return false;
+            }
+        }
     }
 
     public void displayContent()
@@ -170,18 +212,34 @@ public class BookList {
         Node current = head;
 
         // print out first node
-        System.out.println(current.b.toString());
+        System.out.println(current.b.toString() + " ==> ");
         while (current.next != head) {
             current = current.next;
-            System.out.println(current.b.toString());
+            System.out.println(current.b.toString() + " ==> ");
         }
+        System.out.println(" ==> head");
     }
 
     //  ----------------------------------------
     // TODO
     // ---------------------------------------
+
+    /**
+     * method finds all consecutive repeated nodes, each having the same Book record and deletes them 
+     * 
+     * @return false if 
+     */
     public boolean delConsecutiveRepeatedRecords()
     {
+        // Node current = head;
+        // while(current.next != head)
+        // {
+        //     if(current.b.equals(current.next.b)){
+        //         current.next = current.next.next;
+        //     }
+            
+        //     current = current.next;
+        // }
         return false;
     }
         
