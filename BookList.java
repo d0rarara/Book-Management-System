@@ -231,16 +231,37 @@ public class BookList {
      */
     public boolean delConsecutiveRepeatedRecords()
     {
-        // Node current = head;
-        // while(current.next != head)
-        // {
-        //     if(current.b.equals(current.next.b)){
-        //         current.next = current.next.next;
-        //     }
-            
-        //     current = current.next;
-        // }
-        return false;
+        Node current = head;
+
+        boolean didDelete = false;
+
+        while(true)
+        {
+            // check if the current node is equal to the next node
+            if(current.b.equals(current.next.b)){
+                // SPECIAL CASE: if node to be deleted is the head, shift the head to the following node
+                if (current.next == head)
+                {
+                    head = current.next.next;
+                }
+
+                // delete repeated book node from the linked list
+                current.next = current.next.next;
+
+                // remember that i deleted a node
+                didDelete = true;
+            }
+            else{
+                // only move on to the next node if i didn't delete a consecutive node
+                current = current.next;
+
+                // break from the loop when i get back to the head
+                if (current == head) {
+                    break;
+                }
+            }
+        }
+        return didDelete;
     }
         
     public BookList extractAuthList(String aut)
