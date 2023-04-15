@@ -102,7 +102,14 @@ public class Main {
             }
             else if (inp == 2)
             {
-                bkLst.delConsecutiveRepeatedRecords();
+                if (bkLst.delConsecutiveRepeatedRecords())
+                {
+                    System.out.println("Deleted some records.");
+                }
+                else
+                {
+                    System.out.println("No repeated records were found.");
+                }
                 bkLst.displayContent();
             }
             else if (inp == 3)
@@ -115,10 +122,9 @@ public class Main {
             }
             else if (inp == 4)
             {
-                //FIX: missing quotes in title
                 //prompt user to enter isbn and info of the book to be inserted
                 System.out.println("We are looking for ISBN 1887664688.");
-                Book b1 = new Book("The Dark Road","Jimin S",25.92,1239009879,"FCN",2019);
+                Book b1 = new Book("\"The Dark Road\"","Jimin S",25.92,1239009879,"FCN",2019);
                 bkLst.insertBefore(1887664688L, b1);
                 System.out.println(); 
                 bkLst.displayContent();
@@ -130,9 +136,8 @@ public class Main {
             }
             else if(inp == 5)
             {
-                //FIX: missing quotes in title
                 System.out.println("We are looking for ISBN 9780899509 and ISBN 9780786400 (respectfully).");
-                Book b2 = new Book("The Gifted", "Shawn Daron", 45.22, 1765669879, "DOC", 2023);
+                Book b2 = new Book("\"The Gifted\"", "Shawn Daron", 45.22, 1765669879, "DOC", 2023);
                 bkLst.insertBetween(9780899509L, 9780786400L,b2);
                 System.out.println(); 
                 bkLst.displayContent();
@@ -154,6 +159,7 @@ public class Main {
             else{
                 System.out.println("Error: invalid input");
             }
+            // bkLst.displayContent();
         }
         inputScanner.close();
         
