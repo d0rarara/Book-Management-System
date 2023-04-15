@@ -289,7 +289,57 @@ public class BookList {
 
     public boolean swap(long isbn1, long isbn2)
     {
-        return false;
+        // find last node
+        Node last = head;
+        while (last.next != head) {
+            last = last.next;
+        }
+
+        // Search for isbn1 (keep track of beforeISBN1Node and current1)
+        Node beforeISBN1Node = last, current1 = head;
+        
+        // loop through list until current1 matches isbn1 or we get back to head
+        while (current1.b.getISBN() != isbn1) {
+            beforeISBN1Node = current1;
+            current1 = current1.next;
+
+            // if i get back to head without a match, return false
+            if (current1.next == head) {
+                return false;
+            }
+        }
+ 
+        // loop through list until current2 matches isbn2 or we get back to head
+        Node beforeISBN2Node = last, current2 = head;
+        while (current2.b.getISBN() != isbn2) {
+            beforeISBN2Node = current2;
+            current2 = current2.next;
+
+            // if i get back to head without a match, return false
+            if (current2.next == head) {
+                return false;
+            }
+        }
+ 
+ 
+        // swap node positions
+        beforeISBN1Node.next = current2;
+        beforeISBN2Node.next = current1;
+ 
+        // Swap next pointers
+        Node temp = current1.next;
+        current1.next = current2.next;
+        current2.next = temp;
+
+        // switch the head if one was the head
+        if (current1 == head){
+            head = current2;
+        }
+        else if (current2 == head){
+            head = current1;
+        }
+
+        return true;
     }
 
     public void commit()

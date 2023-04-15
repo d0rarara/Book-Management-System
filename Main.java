@@ -137,16 +137,31 @@ public class Main {
             }
             else if(inp == 5)
             {
-                System.out.println("We are looking for ISBN 9780899509 and ISBN 9780786400 (respectfully).");
+                System.out.println("Enter 2 isbns to swap:");
+                Long isbn1 = inputScanner.nextLong();
+                inputScanner.nextLine();
+                Long isbn2 = inputScanner.nextLong();
+                inputScanner.nextLine();
+
+                System.out.println("We are looking for ISBN" + isbn1+ "and ISBN "+isbn2+" (respectfully).");
                 Book b2 = new Book("\"The Gifted\"", "Shawn Daron", 45.22, 1765669879, "DOC", 2023);
-                bkLst.insertBetween(9780899509L, 9780786400L,b2);
+                bkLst.insertBetween(isbn1, isbn2,b2);
                 System.out.println(); 
                 bkLst.displayContent();
                 System.out.println("--------------");
             }
             else if(inp == 6)
             {
-                
+                System.out.println("Enter 2 isbns to swap:");
+                Long isbn1 = inputScanner.nextLong();
+                inputScanner.nextLine();
+                Long isbn2 = inputScanner.nextLong();
+                inputScanner.nextLine();
+                bkLst.swap(isbn1, isbn2);
+
+                System.out.println(); 
+                bkLst.displayContent();
+                System.out.println("--------------");
             }
             else if(inp == 7)
             {
