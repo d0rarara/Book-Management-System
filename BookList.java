@@ -266,7 +266,25 @@ public class BookList {
         
     public BookList extractAuthList(String aut)
     {
-        return null;
+        BookList authList = new BookList();
+        Node current = head;
+
+        while(true)
+        {
+            if (current.b.getAuthor().equals(aut))
+            {
+                authList.addToStart(current.b);
+            }
+
+            current = current.next;
+
+            if (current == head)
+            {
+                break;
+            }
+        }
+
+        return authList;
     }
 
     public boolean swap(long isbn1, long isbn2)
