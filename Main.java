@@ -91,6 +91,7 @@ public class Main {
             System.out.println("--------------");
     
             int inp = inputScanner.nextInt();
+            inputScanner.nextLine();
             System.out.println("--------------");
             if (inp == 1)
             {
@@ -114,7 +115,7 @@ public class Main {
             }
             else if (inp == 3)
             {
-                System.out.println("Enter author name:\n> ");
+                System.out.println("Enter author name:");
                 String author = inputScanner.nextLine();
                 BookList authList = bkLst.extractAuthList(author);
                 authList.displayContent();
