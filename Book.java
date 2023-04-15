@@ -160,5 +160,14 @@ public class Book implements Comparable<Book> {
         return this.year - that.year;
     }
 
+    public boolean equals(Object o){
+        if(o==null || !(o instanceof Book)){
+            return false;
+        } else {
+            Book other = (Book) o;
+            return title.equals(other.title) && author.equals(other.author)  && isbn == other.isbn && genre.equals(other.genre) && year == other.year;
+        }
+    } 
+
   
 }
