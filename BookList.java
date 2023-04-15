@@ -344,6 +344,37 @@ public class BookList {
 
     public void commit()
     {
+        // delete [yr].txt file if it exists
+        String filename = "Update_Books.txt";
+        // File fileObject = new File(filename);
+        // if (fileObject.exists()){
+        //     fileObject.delete();
+        // }
 
+        Node current = head;
+
+        
+        FileWriter myWriter = null;
+        try
+        {   
+            myWriter = new FileWriter(filename, false);
+            while (true) 
+            { 
+                myWriter.write(current.b.toString() + "\n");
+                
+                // move our current pointer to the next node in the list
+                current = current.next;
+                
+                // Break the loop when we get back to the head
+                if (current.next == head){
+                    break;
+                }
+            }
+            myWriter.close();
+        } 
+        catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 }

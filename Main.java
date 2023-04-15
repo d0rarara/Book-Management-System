@@ -165,7 +165,7 @@ public class Main {
             }
             else if(inp == 7)
             {
-                
+                bkLst.commit();
             }
             else if(inp == 8)
             {
