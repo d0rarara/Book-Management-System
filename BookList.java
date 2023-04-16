@@ -1,3 +1,8 @@
+// Dorcas Kumbu Buthidi 40224424
+// COMP249
+// Assignment 4
+// Due Date: April 17, 2023 
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,31 +14,10 @@ public class BookList {
         private Book b;
         private Node next;
 
-        // public Node(){
-        //     b = null;
-        //     next = null;
-        // }
-
         public Node(Book bData, Node nextNode){
             b = bData;
             next = nextNode;
         }
-
-        // public Book getBook(){
-        //     return this.b;
-        // }
-
-        // public Node getNext(){
-        //     return this.next;
-        // }
-
-        // public void setBook(Book b){
-        //     this.b = b;
-        // }
-
-        // public void setNext(Node next){
-        //     this.next = next;
-        // }
     }
 
     // one attribute called head 
@@ -207,6 +191,12 @@ public class BookList {
         }
     }
 
+
+    /**
+     * method displays records of BookList object one record per line seperated by '==>'
+     * last node displays '==> head'
+     * 
+     */
     public void displayContent()
     {
         Node current = head;
@@ -220,14 +210,10 @@ public class BookList {
         System.out.println(" ==> head");
     }
 
-    //  ----------------------------------------
-    // TODO
-    // ---------------------------------------
-
     /**
      * method finds all consecutive repeated nodes, each having the same Book record and deletes them 
      * 
-     * @return false if 
+     * @return didDelete 
      */
     public boolean delConsecutiveRepeatedRecords()
     {
@@ -263,7 +249,15 @@ public class BookList {
         }
         return didDelete;
     }
-        
+    
+    /**
+     * method searches all records in calling list for Book objects with given author 
+     * 
+     * creates new singular circular list that includes only the records of the author 
+     * 
+     * @param aut name of author
+     * @return authList
+     */
     public BookList extractAuthList(String aut)
     {
         BookList authList = new BookList();
@@ -287,6 +281,14 @@ public class BookList {
         return authList;
     }
 
+    /**
+     * method swaps first pair of nodes of which the first stores a Book record with isbn1
+     * and the second stores Book record with isbn2
+     * 
+     * @param isbn1 first isbn value
+     * @param isbn2 seccond isbn value
+     * @return true
+     */
     public boolean swap(long isbn1, long isbn2)
     {
         // find last node
@@ -342,6 +344,11 @@ public class BookList {
         return true;
     }
 
+    /**
+     * method commits contents of list in Update_Books.txt file
+     * 
+     * file will permanently include contents after last commit() call is made
+     */
     public void commit()
     {
         // delete [yr].txt file if it exists

@@ -1,3 +1,8 @@
+// Dorcas Kumbu Buthidi 40224424
+// COMP249
+// Assignment 4
+// Due Date: April 17, 2023 
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -64,7 +69,7 @@ public class Main {
                 }
 
                 myWriter.close();
-                System.out.println("Successfully wrote to the file.");
+                System.out.println("Successfully wrote to YearError file.");
                 System.out.println("--------------");
             } catch (IOException e) {
                 System.out.println("An error occurred.");
@@ -80,6 +85,7 @@ public class Main {
         while (true)
         {
             // display the menu
+            System.out.println("Let's chat! :-)");
             System.out.println("1) Give me a year # and I would extract all records of that year and store them in a file for that year;");
             System.out.println("2) Ask me to delete all consecutive repeated records;");
             System.out.println("3) Give me an author name and I will create a new list with the records of this author and display them;");
@@ -88,6 +94,7 @@ public class Main {
             System.out.println("6) Give me 2 ISBN numbers and I will swap them in the list for rearrangement of records; of course if they exist!");
             System.out.println("7) Tell me to COMMIT! Your command is my wish. I will commit your list to a file called Updated_Books;");
             System.out.println("8) Tell me to STOP TALKING. Remember, if you do not commit, I will not!");
+            System.out.println("Please enter an option: ");
             System.out.println("--------------");
     
             int inp = inputScanner.nextInt();
@@ -98,7 +105,11 @@ public class Main {
                 System.out.println("Enter year (4 digits):");
                 int year = inputScanner.nextInt();
                 bkLst.storeRecordsByYear(year);
-                System.out.println("--------------");
+                System.out.println();
+                System.out.println("**************");
+                System.out.println("You will be brought back to the display menu once your file is written.");
+                System.out.println("**************");
+                System.out.println();
                 
             }
             else if (inp == 2)
@@ -111,60 +122,83 @@ public class Main {
                 {
                     System.out.println("No repeated records were found.");
                 }
+                System.out.println();
+                System.out.println("**************");
+                System.out.println("Here are the contents of the list after removing consecutive duplicates");
+                System.out.println();
                 bkLst.displayContent();
+                System.out.println("**************");
+                System.out.println();
             }
             else if (inp == 3)
             {
-                System.out.println("Enter author name:");
+                System.out.println("Please enter the name of the author to create an extracted list:");
                 String author = inputScanner.nextLine();
                 BookList authList = bkLst.extractAuthList(author);
+                System.out.println();
+                System.out.println("**************");
+                System.out.println("Here are the contents of the author list for " + author);
+                System.out.println();
                 authList.displayContent();
-                System.out.println("--------------");
+                System.out.println("**************");
+                System.out.println();
             }
             else if (inp == 4)
             {
-                //prompt user to enter isbn and info of the book to be inserted
-                System.out.println("We are looking for ISBN 1887664688.");
+                System.out.println("Enter an ISBN value: "); //1887664688
+                Long isbn = inputScanner.nextLong();
+
+                System.out.println();
+                System.out.println("**************");
+                System.out.println("We are looking for ISBN " + isbn);
+                System.out.println();
                 Book b1 = new Book("\"The Dark Road\"","Jimin S",25.92,1239009879,"FCN",2019);
-                bkLst.insertBefore(1887664688L, b1);
-                System.out.println(); 
+                bkLst.insertBefore(isbn, b1);
+                System.out.println();
                 bkLst.displayContent();
-                System.out.println("--------------");
-
-                
-                
-
+                System.out.println("**************");
+                System.out.println();
             }
             else if(inp == 5)
             {
-                System.out.println("Enter 2 isbns to swap:");
-                Long isbn1 = inputScanner.nextLong();
-                inputScanner.nextLine();
+                System.out.println("Enter the first ISBN value: "); //9780899509, 9780786400
+                Long isbn1 = inputScanner.nextLong(); 
+                System.out.println("Enter the second ISBN value: ");
                 Long isbn2 = inputScanner.nextLong();
-                inputScanner.nextLine();
-
-                System.out.println("We are looking for ISBN" + isbn1+ "and ISBN "+isbn2+" (respectfully).");
+                
+                System.out.println();
+                System.out.println("**************");
+                System.out.println("We are looking for ISBN " + isbn1 + " and ISBN "+ isbn2 + " (respectfully).");
                 Book b2 = new Book("\"The Gifted\"", "Shawn Daron", 45.22, 1765669879, "DOC", 2023);
                 bkLst.insertBetween(isbn1, isbn2,b2);
                 System.out.println(); 
                 bkLst.displayContent();
-                System.out.println("--------------");
+                System.out.println("**************");
+                System.out.println();
             }
             else if(inp == 6)
             {
-                System.out.println("Enter 2 isbns to swap:");
-                Long isbn1 = inputScanner.nextLong();
-                inputScanner.nextLine();
+                System.out.println("Enter the first ISBN value: "); //9780899509, 9780786400
+                Long isbn1 = inputScanner.nextLong(); 
+                System.out.println("Enter the second ISBN value: ");
                 Long isbn2 = inputScanner.nextLong();
-                inputScanner.nextLine();
-                bkLst.swap(isbn1, isbn2);
 
+                System.out.println();
+                System.out.println("**************");
+                System.out.println("Records with ISBN " + isbn1 + " and " + isbn2 + " were found and swapped.");
+                System.out.println("Here are the contents of the list after rearranging the record.");
+                bkLst.swap(isbn1, isbn2);
                 System.out.println(); 
                 bkLst.displayContent();
-                System.out.println("--------------");
+                System.out.println("**************");
             }
             else if(inp == 7)
             {
+                System.out.println();
+                System.out.println("**************");
+                System.out.println("You will be brought back to the display menu once your file is written.");
+                System.out.println("**************");
+                System.out.println();
                 bkLst.commit();
             }
             else if(inp == 8)
@@ -175,9 +209,14 @@ public class Main {
             else{
                 System.out.println("Error: invalid input");
             }
-            // bkLst.displayContent();
         }
         inputScanner.close();
         
     }
 }
+
+//special case(s): 
+//
+//author not found, 
+//list is empty, insertion before head, 
+//insertion between last node and head
