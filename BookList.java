@@ -73,6 +73,11 @@ public class BookList {
      * @param yr year of book record
      */
     public void storeRecordsByYear(int yr){
+        // SPECIAL CASE: list is empty
+        if (head == null)
+        {
+            return;
+        }
 
         // delete [yr].txt file if it exists
         String filename = Integer.toString(yr) + ".txt";
@@ -128,6 +133,12 @@ public class BookList {
      */
     public boolean insertBefore(long isbn, Book b)
     {
+        // SPECIAL CASE: list is empty
+        if (head == null)
+        {
+            return false;
+        }
+
         Node current = head;
         while (true)
         {
@@ -136,6 +147,12 @@ public class BookList {
             {
                 // insert new node before current.next
                 Node newNode = new Node(b, current.next);
+
+                // SPECIAL CASE: insert before head
+                if (current.next == head)
+                {
+                    head = newNode;
+                }
 
                 // and after current
                 current.next = newNode;
@@ -166,6 +183,12 @@ public class BookList {
      */
     public boolean insertBetween(long isbn1, long isbn2, Book b)
     {
+        // SPECIAL CASE: list is empty
+        if (head == null)
+        {
+            return false;
+        }
+
         Node current = head;
         while (true)
         {
@@ -174,6 +197,12 @@ public class BookList {
             {
                 // insert new node before current.next
                 Node newNode = new Node(b, current.next);
+
+                // SPECIAL CASE: insert before head
+                if (current.next == head)
+                {
+                    head = newNode;
+                }
 
                 // and after current.next
                 current.next = newNode;
@@ -199,6 +228,13 @@ public class BookList {
      */
     public void displayContent()
     {
+        // SPECIAL CASE: list is empty
+        if (head == null)
+        {
+            System.out.println(" ==> head");
+            return;
+        }
+
         Node current = head;
 
         // print out first node
@@ -217,6 +253,12 @@ public class BookList {
      */
     public boolean delConsecutiveRepeatedRecords()
     {
+        // SPECIAL CASE: list is empty
+        if (head == null)
+        {
+            return false;
+        }
+
         Node current = head;
 
         boolean didDelete = false;
@@ -260,6 +302,12 @@ public class BookList {
      */
     public BookList extractAuthList(String aut)
     {
+        // SPECIAL CASE: list is empty
+        if (head == null)
+        {
+            return new BookList();
+        }
+
         BookList authList = new BookList();
         Node current = head;
 
@@ -291,6 +339,12 @@ public class BookList {
      */
     public boolean swap(long isbn1, long isbn2)
     {
+        // SPECIAL CASE: list is empty
+        if (head == null)
+        {
+            return false;
+        }
+
         // find last node
         Node last = head;
         while (last.next != head) {
@@ -333,7 +387,7 @@ public class BookList {
         current1.next = current2.next;
         current2.next = temp;
 
-        // switch the head if one was the head
+        // SPECIAL CASE: swapping head
         if (current1 == head){
             head = current2;
         }
@@ -351,6 +405,13 @@ public class BookList {
      */
     public void commit()
     {
+        // SPECIAL CASE: list is empty
+        if (head == null)
+        {
+            System.out.println("Nothing to commit!\n");
+            return;
+        }
+
         // delete [yr].txt file if it exists
         String filename = "Update_Books.txt";
         // File fileObject = new File(filename);
